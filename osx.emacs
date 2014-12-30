@@ -10,6 +10,7 @@
 (global-set-key "\C-xl" 'goto-line)
 (global-set-key "\M-j" 'fill-paragraph)
 (global-set-key "\C-z" 'scroll-down)
+(global-set-key "\C-h" 'next-error)
 
 (setq default-major-mode 'lisp-interaction-mode)
 (setq compile-command "make -k")
@@ -41,3 +42,10 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(cond 
+ ((eq window-system 'ns) ; macosx
+  ;; Invoke login shells, so that .profile or .bash_profile is read
+  (setq shell-command-switch "-lc")))
+
+(setq explicit-bash-args '("--login" "-i"))
