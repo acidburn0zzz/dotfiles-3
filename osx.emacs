@@ -1,4 +1,3 @@
-
 (global-set-key "\C-xt" 'shell)
 (global-set-key "\C-x\C-e" 'compile)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -9,8 +8,12 @@
 (global-set-key "\M-q" 'query-replace)
 (global-set-key "\C-xl" 'goto-line)
 (global-set-key "\M-j" 'fill-paragraph)
+(global-set-key "\M-]" 'join-line)
 (global-set-key "\C-z" 'scroll-down)
 (global-set-key "\C-h" 'next-error)
+(global-set-key "\C-c\C-u" 'uncomment-region)
+(global-set-key "\C-c\C-c" 'comment-region)
+(global-set-key "\C-x\C-u" 'erase-buffer)
 
 (setq default-major-mode 'lisp-interaction-mode)
 (setq compile-command "make -k")
@@ -27,7 +30,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background "black" :foreground "white" :height 140 :foundry "PT Mono"))))
+ '(default ((t (:background "black" :foreground "white" :height 180 :foundry "PT Mono"))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow")))))
 
 (put 'erase-buffer 'disabled nil)
@@ -42,6 +45,9 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(setq compilation-always-kill t)
+(setq compilation-scroll-output t)
 
 (cond 
  ((eq window-system 'ns) ; macosx
