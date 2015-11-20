@@ -58,3 +58,5 @@
 (setq explicit-bash-args '("--login" "-i"))
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(setq exec-path (append exec-path '("/opt/local/bin")))
