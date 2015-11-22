@@ -7,6 +7,7 @@
 (global-set-key "\M-w" 'copy-region-as-kill)
 (global-set-key "\M-j" 'fill-paragraph)
 (global-set-key (kbd "C-S-w") 'kill-region)
+(global-set-key "\C-x\C-w" 'kill-region)
 (global-set-key "\M-u" 'undo)
 (global-set-key "\M-q" 'query-replace)
 (global-set-key "\C-xl" 'goto-line)
@@ -14,6 +15,9 @@
 (global-set-key "\C-z" 'scroll-down)
 (global-set-key "\C-]" 'delete-indentation)
 (global-set-key "\C-h" 'next-error)
+(global-set-key "\C-c\C-u" 'uncomment-region)
+(global-set-key "\C-c\C-c" 'comment-region)
+(global-set-key "\C-x\C-u" 'erase-buffer)
 
 (setq default-major-mode 'lisp-interaction-mode)
 (setq compile-command "make -k")
