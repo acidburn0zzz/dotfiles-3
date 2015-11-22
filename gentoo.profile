@@ -3,7 +3,10 @@
 
 PATH="/volume/home/jmacd/src/go/bin:$PATH:$HOME/bin"
 
-GOPATH="/home/jmacd/src/convoy:/home/jmacd/src/xdelta-git/xdelta3/go"
+PATH="$PATH:$HOME/src/mingwb/mingw-w64-x86_64/bin"
+PATH="$PATH:$HOME/src/mingwb/mingw-w64-i686/bin"
+
+GOPATH="/home/jmacd/src/convoy:/home/jmacd/src/xdelta-64bithash/xdelta3/go"
 export GOPATH
 
 EDITOR=vi
