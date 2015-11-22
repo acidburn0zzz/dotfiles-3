@@ -4,6 +4,7 @@
 (global-set-key "\M-w" 'copy-region-as-kill)
 (global-set-key "\M-j" 'fill-paragraph)
 (global-set-key (kbd "C-S-w") 'kill-region)
+(global-set-key "\C-x\C-w" 'kill-region)
 (global-set-key "\M-u" 'undo)
 (global-set-key "\C-]"          'delete-indentation)
 (global-set-key "\M-q" 'query-replace)
