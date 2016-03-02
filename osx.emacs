@@ -1,3 +1,5 @@
+(require 'package)
+
 (global-set-key "\C-xt" 'shell)
 (global-set-key "\C-x\C-e" 'compile)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -16,6 +18,10 @@
 (global-set-key "\C-c\C-u" 'uncomment-region)
 (global-set-key "\C-c\C-c" 'comment-region)
 (global-set-key "\C-x\C-u" 'erase-buffer)
+
+(global-set-key (kbd "C-c c") 'pbcopy)
+(global-set-key (kbd "C-c v") 'pbpaste)
+(global-set-key (kbd "C-c x") 'pbcut)
 
 (setq default-major-mode 'lisp-interaction-mode)
 (setq compile-command "make -k")
@@ -60,4 +66,26 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(setq exec-path (append exec-path '("/opt/local/bin")))
+(defun pbcopy ()
+  (interactive)
+  (call-process-region (point) (mark) "pbcopy")
+  (setq deactivate-mark t))
+
+(defun pbpaste ()
+  (interactive)
+  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+
+(defun pbcut ()
+  (interactive)
+  (pbcopy)
+  (delete-region (region-beginning) (region-end)))
+
+(package-initialize)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+(exec-path-from-shell-copy-env "GOPATH")
+(exec-path-from-shell-copy-env "GOROOT")
+
+(add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'before-save-hook 'go-remove-unused-imports)
