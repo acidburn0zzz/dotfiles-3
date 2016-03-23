@@ -18,6 +18,7 @@
 (global-set-key "\C-c\C-u" 'uncomment-region)
 (global-set-key "\C-c\C-c" 'comment-region)
 (global-set-key "\C-x\C-u" 'erase-buffer)
+(global-set-key "\C-xO" 'other-frame)
 
 (global-set-key (kbd "C-c c") 'pbcopy)
 (global-set-key (kbd "C-c v") 'pbpaste)
@@ -32,7 +33,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -52,7 +53,8 @@
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+;("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 (setq compilation-always-kill t)
 (setq compilation-scroll-output t)
@@ -87,5 +89,19 @@
 (exec-path-from-shell-copy-env "GOPATH")
 (exec-path-from-shell-copy-env "GOROOT")
 
-(add-hook 'before-save-hook 'gofmt-before-save)
-(add-hook 'before-save-hook 'go-remove-unused-imports)
+(defun my-go-mode-hook()
+  (auto-complete-mode 1)
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+  (local-set-key (kbd "M-.") 'godef-jump))
+
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+
+(with-eval-after-load 'go-mode
+   (require 'go-autocomplete))
+
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+
