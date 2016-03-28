@@ -1,5 +1,7 @@
 (require 'package)
 
+(setq debug-on-error t)
+
 (global-set-key "\C-xt" 'shell)
 (global-set-key "\C-x\C-e" 'compile)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -39,7 +41,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background "black" :foreground "white" :height 180 :foundry "PT Mono"))))
+ '(default ((t (:background "black" :foreground "white" :height 160 :foundry "PT Mono"))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow")))))
 
 (put 'erase-buffer 'disabled nil)
@@ -51,10 +53,14 @@
       mac-command-modifier 'meta
       mac-option-modifier 'none)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
-;("melpa-stable" . "https://stable.melpa.org/packages/")))
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("gnu" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 
 (setq compilation-always-kill t)
 (setq compilation-scroll-output t)
