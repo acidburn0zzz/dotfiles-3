@@ -1,5 +1,7 @@
 (require 'package)
 
+(setq debug-on-error t)
+
 (global-set-key "\C-xt" 'shell)
 (global-set-key "\C-x\C-e" 'compile)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -39,7 +41,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background "black" :foreground "white" :height 180 :foundry "PT Mono"))))
+ '(default ((t (:background "black" :foreground "white" :height 160 :foundry "PT Mono"))))
  '(font-lock-comment-face ((((class color) (min-colors 88) (background dark)) (:foreground "yellow")))))
 
 (put 'erase-buffer 'disabled nil)
@@ -105,3 +107,15 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
+(setq initial-buffer-choice )
+(setq inhibit-startup-screen t)
+
+(defun my-startup-hook()
+  (let ((wd (concat (getenv "GOPATH") "/src/")))
+    (setq default-directory wd)
+    (save-excursion
+      (set-buffer "*Messages*")
+      (cd wd))
+    (shell)))
+
+(add-hook 'emacs-startup-hook 'my-startup-hook)
