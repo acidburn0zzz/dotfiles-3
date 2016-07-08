@@ -4,7 +4,6 @@ function parse_git_branch {
 PS1="\[\e[32m\]\$(parse_git_branch)\[\e[34m\]\W\$ \[\e[m\]"
 export PS1
 
-
 function cd() {
   builtin cd $@ &&
   export GOPATH="$(
@@ -18,3 +17,7 @@ function cd() {
       fi
     ))"
 }
+
+alias g=git
+alias k=kubectl
+alias d=docker

@@ -114,12 +114,20 @@
 (setq initial-buffer-choice )
 (setq inhibit-startup-screen t)
 
+(setq default-directory (concat (getenv "GOPATH") "/src/"))
+
 (defun my-startup-hook()
-  (let ((wd (concat (getenv "GOPATH") "/src/")))
-    (setq default-directory wd)
-    (save-excursion
-      (set-buffer "*Messages*")
-      (cd wd))
-    (shell)))
+  ;; (let ((wd (concat (getenv "GOPATH") "/src/"))
+  ;; 	(buf (get-buffer-create "*Tmp*")))
+  ;;   (save-excursion
+  ;;     (set-buffer buf)
+  ;;     (setq default-directory wd)
+  ;;     (cd wd))
+  (shell))
+  ;; )
 
 (add-hook 'emacs-startup-hook 'my-startup-hook)
+
+(defun my-c-setup ()
+   (c-set-offset 'innamespace [0]))
+(add-hook 'c++-mode-hook 'my-c-setup)

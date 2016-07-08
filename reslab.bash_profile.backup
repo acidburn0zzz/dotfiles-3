@@ -1,0 +1,19 @@
+export GOROOT=/usr/local/go
+export GO15VENDOREXPERIMENT=1
+
+export GOPATH=`$HOME/.gopath`
+export GOBIN=$GOPATH/bin
+export NODE_PATH=$GOPATH/..
+
+export GIT_PAGER=/bin/cat
+export PAGER=/bin/cat
+
+if echo "$PATH" | grep -v "$GOBIN"; then
+    PATH=$PATH:$GOBIN
+    PATH=$PATH:$HOME/bin
+fi
+
+export PYTHONPATH=/Users/jmacd/src/benchmarks/go/src/github.com/lightstep/lightstep-tracer-python:/Users/jmacd/src/benchmarks/go/src/github.com/opentracing/opentracing-python
+
+source $HOME/.bashrc
+source $HOME/src/dotfiles/git.completion
