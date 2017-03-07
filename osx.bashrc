@@ -1,7 +1,10 @@
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1] /'
 }
-PS1="\[\e[32m\]\$(parse_git_branch)\[\e[34m\]\W\$ \[\e[m\]"
+function show_k8s_context {
+    kubectl config current-context
+}
+PS1="\[\e[32m\]\$(parse_git_branch)[\$(show_k8s_context)] \[\e[34m\]\W\$ \[\e[m\]"
 export PS1
 
 function cd() {
@@ -21,3 +24,5 @@ function cd() {
 alias g=git
 alias k=kubectl
 alias d=docker
+
+source <(kubectl completion bash)

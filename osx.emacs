@@ -1,6 +1,7 @@
 (require 'package)
+(require 'dabbrev)
 
-(setq debug-on-error t)
+;(setq debug-on-error t)
 
 (global-set-key "\C-xt" 'shell)
 (global-set-key "\C-x\C-e" 'compile)
@@ -20,11 +21,14 @@
 (global-set-key "\C-c\C-u" 'uncomment-region)
 (global-set-key "\C-c\C-c" 'comment-region)
 (global-set-key "\C-x\C-u" 'erase-buffer)
+(global-set-key "\C-x\C-l" 'goto-line)
 (global-set-key "\C-xO" 'other-frame)
 
 (global-set-key (kbd "C-c c") 'pbcopy)
 (global-set-key (kbd "C-c v") 'pbpaste)
 (global-set-key (kbd "C-c x") 'pbcut)
+
+(global-set-key "\M-c" nil)
 
 (setq default-major-mode 'lisp-interaction-mode)
 (setq compile-command "make -k")
@@ -35,6 +39,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(send-mail-function nil)
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -71,8 +76,8 @@
   (setq shell-command-switch "-lc")))
 
 (setq explicit-bash-args '("--login" "-i"))
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled t)
+(put 'upcase-region 'disabled t)
 
 (defun pbcopy ()
   (interactive)
@@ -99,10 +104,11 @@
   (auto-complete-mode 1)
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
   (local-set-key (kbd "M-.") 'godef-jump))
 
+(load-file "$HOME/src/dotfiles/go-guru.el")
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+(add-hook 'go-mode-hook 'go-guru-hl-identifier-mode)
 
 (with-eval-after-load 'go-mode
    (require 'go-autocomplete))
@@ -131,3 +137,10 @@
 (defun my-c-setup ()
    (c-set-offset 'innamespace [0]))
 (add-hook 'c++-mode-hook 'my-c-setup)
+
+(setq frame-title-format (list "%b - " (upcase (let ((path (getenv "GOPATH")))
+						 (save-match-data
+						   (string-match "/\\([^/]+\\)/go" path)
+						   (match-string 1 path))))))
+
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . conf-mode))
