@@ -4,7 +4,8 @@ function parse_git_branch {
 function show_k8s_context {
     kubectl config current-context
 }
-PS1="\[\e[32m\]\$(parse_git_branch)[\$(show_k8s_context)] \[\e[34m\]\W\$ \[\e[m\]"
+#PS1="\[\e[32m\]\$(parse_git_branch)[\$(show_k8s_context)] \[\e[34m\]\W\$ \[\e[m\]"
+PS1="\$(parse_git_branch)[\$(show_k8s_context)] \$ "
 export PS1
 
 function cd() {

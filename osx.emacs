@@ -39,6 +39,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (go-guru go-mode go-autocomplete exec-path-from-shell)))
  '(send-mail-function nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -104,11 +107,12 @@
   (auto-complete-mode 1)
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (local-set-key (kbd "M-.") 'godef-jump))
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "M-*") 'pop-tag-mark))
 
-(load-file "$HOME/src/dotfiles/go-guru.el")
+(require 'go-guru)
 (add-hook 'go-mode-hook 'my-go-mode-hook)
-(add-hook 'go-mode-hook 'go-guru-hl-identifier-mode)
+;(add-hook 'go-mode-hook 'go-guru-hl-identifier-mode)
 
 (with-eval-after-load 'go-mode
    (require 'go-autocomplete))
@@ -117,7 +121,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
 
-(setq initial-buffer-choice )
+(setq initial-buffer-choice t)
 (setq inhibit-startup-screen t)
 
 (setq default-directory (concat (getenv "GOPATH") "/src/"))
